@@ -5,28 +5,29 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float _speed = 7f;
-    [SerializeField] Transform _target;
+    [SerializeField] float _speed = 4f;
 
-    NavMeshAgent _agent;
-
-    private Ray lastRay;
+    NavMeshAgent _nav;
 
     void Start()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        _nav = GetComponent<NavMeshAgent>();
+        _nav.speed = _speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _agent.destination = _target.position;
-
         if (Input.GetMouseButtonDown(0))
         {
-            lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        }
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+            if (Physics.Raycast(ray, out hit))
+            {
+                _nav.destination = hit.point;
+
+            }
+        }
     }
 }
