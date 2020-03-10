@@ -8,6 +8,7 @@ public class SassyJoeController : MonoBehaviour
     [SerializeField] Transform[] _waitpoints;
     int _waitPoint = 0;
     NavMeshAgent _navAgent;
+    float _nextTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,13 @@ public class SassyJoeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _navAgent.destination = _waitpoints[0].position;
+        if (_nextTime < Time.time)
+        {
+            _nextTime = Time.time + Random.Range(4, 8);
+
+            int choosen = Random.Range(0, _waitpoints.Length - 1);
+
+            _navAgent.destination = _waitpoints[choosen].position;
+        }
     }
 }
