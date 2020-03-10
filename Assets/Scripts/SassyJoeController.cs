@@ -12,6 +12,19 @@ public class SassyJoeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (_waitpoints == null || _waitpoints.Length == 0) {
+            GameObject[] treasures = GameObject.FindGameObjectsWithTag("Treasure");
+
+            _waitpoints = new Transform[treasures.Length];
+
+            int i = 0;
+            foreach (GameObject treasure in treasures)
+            {
+                _waitpoints[i] = treasure.transform;
+                i++;
+            }
+        }
+
         _navAgent = GetComponent<NavMeshAgent>();
         _navAgent.speed = 4;
     }
