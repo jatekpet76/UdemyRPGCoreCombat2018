@@ -42,7 +42,8 @@ public class SassyJoeController : MonoBehaviour
 
         // For Gravity RigidBody has velocity but it should Kinematic?  (_navAgent.velocity.x > 0 || _navAgent.velocity.z > 0)
         // Sometimes working but not every time :(  !_navAgent.isStopped
-        // !!! When it rotating then it could not play the HumanoidRun animation. Why?
+        // When it rotating then it could not play the HumanoidRun animation. Why?
+        // !!! Because HasExitTime in the AnimatorTransitionBase was true and wait for end the previous animation :)
         _animator.SetBool("isRunning", !_navAgent.isStopped);
     }
 
